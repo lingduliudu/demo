@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 	private static Logger logger = LogManager.getLogger(TestController.class);
 
-	@SyncSign(value="lock",bindParams = "abc",desc = "同步abc",expire_time = 100L,request_time = 100L)
+	@SyncSign(value="lock",bindParams = "abc",desc = "同步abc",expire_time = 100L,request_time = 10L)
 	@RequestMapping("/1")
 	public String abc(String abc) {
 		logger.error("====test=====");

@@ -82,6 +82,7 @@ public class AopSynchronization {
 			}
 			boolean redisResult = false;
 			long startTime = System.currentTimeMillis();
+			String extraDesc = "";
 			while(!redisResult) {
 				if(expire_time>0) {
 					redisResult = redisTemplate.opsForValue().setIfAbsent(SYNC_PRE_KEY+comment.value()+valueAfter, "1", expire_time, TimeUnit.SECONDS);
@@ -93,6 +94,7 @@ public class AopSynchronization {
 					long endTime = System.currentTimeMillis();
 					// 超时时间
 					if((endTime-startTime)>request_timeout) {
+						extraDesc ="请求超时";
 						break;
 					}
 				}
@@ -108,7 +110,7 @@ public class AopSynchronization {
 				logger.info("---"+desc+"---className:"+clazzName+"---methodName:"+methodName+"--- redis 同步锁失败! key:"+SYNC_PRE_KEY+comment.value()+valueAfter);
 				//
 				if(!exception_continue) {
-					throw new RuntimeException("redis 同步锁失败! key:"+SYNC_PRE_KEY+comment.value()+valueAfter);
+					throw new RuntimeException(extraDesc+"redis 同步锁失败! key:"+SYNC_PRE_KEY+comment.value()+valueAfter);
 				}
 			}
 			
