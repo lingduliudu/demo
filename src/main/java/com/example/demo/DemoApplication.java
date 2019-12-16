@@ -9,7 +9,6 @@ public class DemoApplication {
 	private static Logger logger = LogManager.getLogger(DemoApplication.class);
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
-		logger.error("=====123=====");
 	}
  
 }

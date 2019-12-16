@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 	private static Logger logger = LogManager.getLogger(TestController.class);
 
+	@SyncSign(value="lock",bindParams = "abc",desc = "同步abc",expire_time = 100L,request_time = 100L)
 	@RequestMapping("/1")
-	public String abc() {
+	public String abc(String abc) {
 		logger.error("====test=====");
+		try {
+			Thread.sleep(20000L);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return "12";
 	}
 }
